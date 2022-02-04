@@ -126,6 +126,41 @@ class cryptactoe_lobbyState extends State<cryptactoe_lobby> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.pinkAccent,
+        onPressed: () async {
+
+          QuerySnapshot _myDoc = await FirebaseFirestore.instance.collection('Lobby').orderBy('folio').get();
+          List<DocumentSnapshot> _myDocCount = _myDoc.docs;
+
+          final collRef = FirebaseFirestore.instance.collection('Lobby');
+          DocumentReference docReference = collRef.doc();
+
+          var now = new DateTime.now();
+
+          final FirebaseAuth auth = FirebaseAuth.instance;
+          final User? user2 = auth.currentUser;
+          final correoPersonal = user2!.email;
+
+          docReference.set({
+            //'tipo': tipo,
+            'nombre': "1nterface",
+            'estado': "activo",
+            'maxmoney': 50,
+            'correoPersonal': correoPersonal,
+            'maxcoin': 7,
+            'maxgame': 20,
+            'players': 126,
+            'folio': _myDocCount.length+1,
+            'newid': docReference.id,
+            //'precioVenta': precio,
+            'id': "123",
+            'miembrodesde': DateFormat("dd-MM-yyyy").format(now),
+          });
+
+        },
+        child: Icon(Icons.add)
+      ),
       backgroundColor: Color(0xFF171B26),
       appBar: AppBar(
         backgroundColor: Color(0xFF293143),
