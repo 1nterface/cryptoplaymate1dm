@@ -1,74 +1,201 @@
-import 'package:badges/badges.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:ui' as ui;
+import 'dart:async';
+import 'dart:html';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:toast/toast.dart';
 import 'package:cryptoplaymate1dm/Modelo/cajas_modelo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cryptoplaymate1dm/Clientes/menu_cliente.dart' as menu;
-import 'package:cryptoplaymate1dm/Clientes/ofertas.dart' as ofertas;
-import 'package:cryptoplaymate1dm/Clientes/compras.dart' as compras;
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:location_permissions/location_permissions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cryptoplaymate1dm/authentication.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class home extends StatefulWidget {
 
-  int selectedPage;
-
-  cajas_modelo product;
-  home(this.product, this.selectedPage);
-
+  var data;
+  home({this.data});
   @override
   homeState createState() => homeState();
 }
 
-class homeState extends State<home> with SingleTickerProviderStateMixin {
+class homeState extends State<home> {
 
-  late int selectedPage;
-
-  late TabController controller;
-
-  Future<void> comprasNotificacion (BuildContext context)async{
-
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = auth.currentUser;
-    final correoPersonal = user!.email;
-
-    QuerySnapshot _myDoc = await FirebaseFirestore.instance.collection('Pedidos_Jimena').where('correopersonal', isEqualTo: correoPersonal).where('visto', isEqualTo: "si").get();
-    List<DocumentSnapshot> _myDocCount = _myDoc.docs;
-    print("Esto quiero: "+_myDocCount.length.toString());
-
-    QuerySnapshot _myDoc2 = await FirebaseFirestore.instance.collection('Pedidos_Jimena').where('correopersonal', isEqualTo: correoPersonal).where('visto', isEqualTo: "no").get();
-    List<DocumentSnapshot> _myDocCount2 = _myDoc2.docs;
-    print("Esto quiero: "+_myDocCount2.length.toString());
-
-    int total =   _myDocCount.length - _myDocCount2.length;
-    FirebaseFirestore.instance.collection('Notificaciones').doc("Compras"+correoPersonal.toString()).set({'notificacion': total.toString()});
-  }
-
-  void correo () async {
-
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    if(FirebaseAuth.instance.currentUser?.uid == null){
-// not logged
-      print("Sin pestania");
-    } else {
-// logged
-      print("Con pestania");
-
-    }
-  }
+  homeState();
 
   @override
   void initState() {
-
-    selectedPage = 0;
-    correo();
-    print("NOMBRE EMPRESA PARA PASAR A MENU CLIENTES: "+widget.product.nombreProducto);
-
-    //comprasNotificaciones(context);
-    //promosNotificaciones(context);
     // TODO: implement initState
-    controller = TabController(length: 3, vsync: this);
     super.initState();
+  }
+
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nombre = TextEditingController();
+
+  String url = 'https://twitter.com/CryptoPlaymate';
+  String urlD = 'https://discord.com';
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  launchURLDiscord(String urlD) async {
+    if (await canLaunch(urlD)) {
+      await launch(urlD, forceWebView: true);
+    } else {
+      throw 'Could not launch $urlD';
+    }
+  }
+
+  final String imageUrl = "https://www.elcarrocolombiano.com/wp-content/uploads/2019/01/20190122-MPM-ERELIS-AUTO-DEPORTIVO-MAS-BARATO-01.jpg";
+
+  Widget hola (){
+
+    ui.platformViewRegistry.registerViewFactory(
+      imageUrl,
+          (int viewId) => ImageElement()..src = imageUrl,
+    );
+    return Container(
+      height: 350,
+      width: 500,
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+      child: HtmlElementView(
+        viewType: imageUrl,
+      ),
+    );
+  }
+
+  Future<void> inicioSesion() async {
+    // marked async
+    AuthenticationHelper()
+        .signIn(email: _emailController.text, password: _passwordController.text)
+        .then((result) {
+      if (result == null) {
+
+        Navigator.of(context).pop();
+        Navigator.of(context).pushNamed('/cryptactoe');
+
+        //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => home(cajas_modelo("","","",0,0,0,0,0,"","","","","",0))));
+        //Toast.show("¡Has iniciado sesion!", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
+
+      } else {
+        Toast.show("Incorrect password", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
+      }
+    });
+  }
+
+  Future _startUploadTask() async {
+
+    QuerySnapshot _myDoc = await FirebaseFirestore.instance.collection('Players').get();
+    List<DocumentSnapshot> _myDocCount = _myDoc.docs;
+
+    AuthenticationHelper()
+        .signUp(
+        email: _emailController.text, password: _passwordController.text)
+        .then((result) {
+      if (result == null) {
+
+
+        String nombre = _nombre.text;
+        String correo = _emailController.text;
+
+
+        final collRef = FirebaseFirestore.instance.collection('Players').doc(correo);
+
+        //double costo = double.parse(_precio.text);
+        var now = DateTime.now();
+
+        collRef.set({
+          'correo': _emailController.text,
+          //'telefono': _tel.text,
+          'contraseña': _passwordController.text,
+          //'newid': docReference.documentID,
+          'foto': "",
+          'id': "123",
+          //'colonia': _colonia.text,
+          //'calle': _calle.text,
+          //'numerocasa': _num.text,
+          'nombre': "Crypto Playmate "+_myDocCount.toString(),
+          //'foto': url,
+          'miembrodesde': DateFormat("dd-MM-yyyy").format(now),
+        });
+
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.of(context).pushNamed('/cryptactoe');
+
+      } else {
+        print("");
+      }
+    });
+  }
+
+  void registro(){
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    if(FirebaseAuth.instance.currentUser?.uid == null){
+      // not logged
+      Alert(
+          context: context,
+          title: "Sign Up",
+          content: Column(
+            children: <Widget>[
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.account_circle, color: Color(0xFF815FD5)),
+                  labelText: 'Email',
+                ),
+              ),
+              TextFormField(
+                controller: _passwordController,
+
+                obscureText: true,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.lock, color: Color(0xFF815FD5)),
+                  labelText: 'Password',
+                ),
+              ),
+            ],
+          ),
+          buttons: [
+            DialogButton(
+              onPressed: () {
+
+                _startUploadTask();
+                //sinSesion2();
+                //Navigator.of(context).pop();
+                //Navigator.of(context).pop();
+
+              },
+              child: Text(
+                "Sign Up",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              color: Color(0xFF815FD5),
+            )
+          ]).show();
+    } else {
+      // logged
+      Navigator.of(context).pop();
+
+    }
+
   }
 
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -76,209 +203,410 @@ class homeState extends State<home> with SingleTickerProviderStateMixin {
     await auth.signOut();
   }
 
-  @override
-  void dispose() {
-    signOut();
-    // TODO: implement dispose
-    //signOut();
-    controller.dispose();
-  }
+  void sinSesion2(){
+    final FirebaseAuth auth = FirebaseAuth.instance;
 
-  CollectionReference promo = FirebaseFirestore.instance.collection('Notificaciones');
-
-  Widget promosNotificaciones (BuildContext context){
-    return FutureBuilder<DocumentSnapshot>(
-      future: promo.doc("Promos").get(),
-      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
-        if (snapshot.hasError) {
-          return Text("Something went wrong");
-        }
-
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-          return
-            data["notificacion"] == "0"?
-            Column(
-              children: [
-                Tab(icon: Icon(Icons.announcement, color: Colors.white,)),
-                Text("OFERTAS", style: TextStyle(color: Colors.white),),
-              ],
-            )
-                :
-            Badge(
-              position: BadgePosition(left: 40),
-              badgeColor: Colors.red[700],
-              badgeContent: Text(data["notificacion"], style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white), ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Column(
-                  children: [
-                    Tab(icon: Icon(Icons.announcement, color: Colors.white,)),
-                    Text("OFERTAS", style: TextStyle(color: Colors.white),),
-                  ],
+    if(FirebaseAuth.instance.currentUser?.uid == null){
+      // not logged
+      Alert(
+          context: context,
+          title: "Sign In",
+          content: Column(
+            children: <Widget>[
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.account_circle, color: Colors.pinkAccent),
+                  labelText: 'Email',
                 ),
               ),
-            );
-        }
+              TextFormField(
+                controller: _passwordController,
 
-        return Text("loading");
-      },
-    );
-  }
-
-  Widget comprasNotificaciones (BuildContext context){
-
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = auth.currentUser;
-    final correoPersonal = user!.email;
-
-    return StreamBuilder<DocumentSnapshot<Object?>>(
-        stream: FirebaseFirestore.instance.collection('Notificaciones').doc("Compras"+correoPersonal.toString()).snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Text("Loading");
-          }
-          //reference.where("title", isEqualTo: 'UID').snapshots(),
-
-          else
-          {
-            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-
-
-            return
-              data["notificacion"] == "0"?
-              Column(
-                children: const [
-                  Tab(icon: Icon(Icons.monetization_on, color: Colors.white,)),
-                  Text("COMPRAS", style: TextStyle(color: Colors.white),),
-                ],
-              )
-                  :
-              Badge(
-                position: BadgePosition(left: 40),
-                badgeColor: Colors.white,
-                badgeContent: Text(data["notificacion"], style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red), ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Column(
-                    children: [
-                      Tab(icon: Icon(Icons.monetization_on, color: Colors.white,)),
-                      Text("COMPRAS", style: TextStyle(color: Colors.white),),
-                    ],
-                  ),
-
+                obscureText: true,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.lock, color: Colors.pinkAccent),
+                  labelText: 'Password',
                 ),
-              );
+              ),
+            ],
+          ),
+          buttons: [
+            DialogButton(
+              onPressed: () {
 
-          }
-        }
-    );
+                inicioSesion();
+                //signOut();
+
+              },
+              child: Text(
+                "Sign In",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              color: Colors.pinkAccent,
+
+            ),
+            DialogButton(
+              onPressed: () {
+
+                registro();
+                //Navigator.of(context).pushNamed('/registro');
+
+              },
+              child: Text(
+                "Sign Up",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              color: Colors.pinkAccent,
+            )
+          ]).show();
+    } else {
+      // logged
+      Navigator.of(context).pushNamed("/cryptactoe_game");
+
+    }
+
   }
-
-  Widget comprasNotificaciones2 (BuildContext context){
-
-    return Column(
-      children: const [
-        Tab(icon: Icon(Icons.monetization_on, color: Colors.white,)),
-        Text("COMPRAS", style: TextStyle(color: Colors.white),),
-      ],
-    );
-  }
-
-  var now = DateTime.now();
-
-
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex:selectedPage,
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Color(0xff6DA08E),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text("Siento11 Colectivo", style: const TextStyle(color: Colors.white),),
-              InkWell(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF293143),
+        centerTitle: true,
+        title: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:[
+
+                InkWell(
                   onTap:(){
 
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        // return object of type Dialog
-                        return AlertDialog(
-                          title: Text('¿Deseas cerrar sesion?', style: TextStyle(color: Colors.black)),
-                          actions: <Widget>[
+                    Navigator.of(context).pushNamed('/whitepaper');
 
 
-
-                            FlatButton(
-                              onPressed: (){
-
-                                Navigator.of(context).pop();
-
-                              },
-                              child: Text('Cancelar'),
-                            ),
-                            // usually buttons at the bottom of the dialog
-                            FlatButton(
-                              child: Text("Si"),
-                              onPressed: () async {
-                                Navigator.of(context).pushNamedAndRemoveUntil('/clientes_login', (route) => false);
-                                signOut();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-
-                    //_tiempoRecorrido(context, documents["estado3"], documents["pendiente"], documents["transitopendiente"], documents["encamino"], documents["ensitio"], documents["finalizo"], documents["hora"]);
                   },
-                child: Icon(Icons.exit_to_app),
-              ),
-            ],
+                  child: Row(
+                      children: [
+                        Icon(Icons.list, color: Color(0xFF815FD5)),
+                        SizedBox(width:10),
+                        Text('Whitepaper', style: TextStyle(color: Colors.white),),
+                      ]
+                  ),
+                ),
+                SizedBox(width: 15),
+
+                InkWell(
+                  onTap:(){
+
+                    Navigator.of(context).pushNamed("/roadmap");
+
+                  },
+                  child: Row(
+                      children: [
+                        Icon(Icons.account_tree, color: Colors.pinkAccent),
+                        SizedBox(width:10),
+                        Text('Roadmap', style: TextStyle(color: Colors.white),),
+                      ]
+                  ),
+                ),
+                SizedBox(width: 15),
+
+                InkWell(
+                  onTap:(){
+                    launchURL(url);
+                  },
+                  child: Row(
+                      children: [
+                        Icon(FontAwesomeIcons.twitter, color: Colors.lightBlueAccent),
+                        SizedBox(width:10),
+                        Text('Follow us', style: TextStyle(color: Colors.white),),
+                      ]
+                  ),
+                ),
+
+                SizedBox(width: 15),
+
+                InkWell(
+                  onTap:(){
+                    launchURLDiscord(urlD);
+                  },
+                  child: Row(
+                      children: [
+                        Icon(FontAwesomeIcons.discord, color: Color(0xFF815FD5)),
+                        SizedBox(width:10),
+                        Text('Join us', style: TextStyle(color: Colors.white),),
+                      ]
+                  ),
+                ),
+
+
+                SizedBox(width: 15),
+
+                InkWell(
+                  onTap:(){
+                    launchURLDiscord(urlD);
+                  },
+                  child: Row(
+                      children: [
+                        Icon(FontAwesomeIcons.linkedin, color: Colors.pinkAccent),
+                        SizedBox(width:10),
+                        Text('Contact us', style: TextStyle(color: Colors.white),),
+                      ]
+                  ),
+                ),
+                SizedBox(width: 15),
+
+                InkWell(
+                  onTap:(){
+                    signOut();
+                  },
+                  child: Row(
+                      children: [
+                        Icon(Icons.exit_to_app, color: Colors.lightBlueAccent),
+                        //SizedBox(width:10),
+                        //Text('Contact us', style: TextStyle(color: Colors.white),),
+                      ]
+                  ),
+                ),
+              ],
           ),
-          bottom: TabBar(
-            isScrollable: true,
-            controller: controller,
-            tabs: <Widget>[
-              Column(
-                children: [
-                  Tab(icon: Icon(Icons.home, color: Colors.white,)),
-                  Text("CATALOGO", style: TextStyle(color: Colors.white),),
-                ],
-              ),
-              //Tab(icon: Icon(Icons.chat), text: "CHAT",),
-              promosNotificaciones(context),
-              FirebaseAuth.instance.currentUser?.email == null?
-              comprasNotificaciones2(context)
-              :
-              comprasNotificaciones(context),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          controller: controller,
-          children: <Widget>[
-            //proveedor.Menu_Clientes2(),
-            menu.menu_cliente(widget.product.nombreProducto, widget.product.nombreProveedor, widget.product.newid, widget.product.foto, widget.product.estado, widget.product.codigoDeBarra, widget.product.maximo, widget.product.minimo),
-            ofertas.ofertas(),
-            compras.compras(),
-            //acreedores.Mis_Compras2(),
-            //empleados.Pagos_Clientes(),
-          ],
         ),
       ),
+      floatingActionButton: SpeedDial( //Boton flotante animado,
+        //marginRight: 18,
+        //marginBottom: 30,
+        animatedIcon: AnimatedIcons.home_menu,
+        animatedIconTheme: IconThemeData(size: 25.0),
+        // this is ignored if animatedIcon is non null
+        // child: Icon(Icons.add),
+        visible: true,
+        curve: Curves.bounceIn,
+        overlayColor: Colors.black,
+        overlayOpacity: 0.5,
+        onOpen: () => print('OPENING DIAL'),
+        onClose: () => print('DIAL CLOSED'),
+        tooltip: 'Crypto Playmate',
+        heroTag: 'Crypto Playmate',
+        backgroundColor: Colors.lightBlueAccent,
+        foregroundColor: Colors.white,
+        elevation: 1.0,
+        shape: CircleBorder(),
+        children: [
+
+          SpeedDialChild(
+              child: Icon(Icons.person, color: Colors.white,),
+              backgroundColor: Color(0xFF815FD5),
+              label: 'Team',
+              onTap: () async {
+
+                Navigator.of(context).pushNamed('/team');
+                //Navigator.of(context).pushNamed('/admin_inicio');
+
+              }
+          ),
+
+          SpeedDialChild(
+              child: Icon(FontAwesomeIcons.networkWired, color: Colors.white,),
+              backgroundColor: Colors.pinkAccent,
+              label: 'NFT Power Cards',
+              onTap: () async {
+
+                Navigator.of(context).pushNamed("/nft_power_cards");
+
+                //Navigator.of(context).pushNamed('/admin_inicio');
+
+              }
+          ),
+
+          SpeedDialChild(
+              child: Icon(FontAwesomeIcons.idCard, color: Colors.white),
+              backgroundColor: Colors.lightBlueAccent,
+              label: 'NFT Member',
+              onTap: () async {
+
+                Navigator.of(context).pushNamed("/nft_members");
+
+                //Navigator.of(context).pushNamed('/admin_inicio');
+
+              }
+          ),
+
+
+        ],
+      ),
+      backgroundColor: Color(0xFF171B26),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Column(
+                children:[
+                  CarouselSlider(
+                    items: [
+
+                      //hola(),
+                      InkWell(
+                        onTap: () async {
+
+                          bool sesion = false;
+
+                            final FirebaseAuth auth = FirebaseAuth.instance;
+                            if(FirebaseAuth.instance.currentUser?.email == null){
+                                               // not logged
+                              setState(() {
+                                sinSesion2();
+
+                                sesion = false;
+                                print("Sin pestania $sesion");
+                              });
+
+                            } else {
+                                // logged
+                              setState(() {
+                                Navigator.of(context).pushNamed("/cryptactoe");
+
+                                sesion = true;
+                                print("Con pestania $sesion");
+                              });
+                            }
+
+                          //sinSesion2();
+                          //Navigator.of(context).pushNamed("/cryptactoe");
+                        },
+                        child: Container(
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                image: DecorationImage(
+                                  image: AssetImage("images/ancestral.jpg"),
+                                  fit: BoxFit.cover, //contain en todas ya que tenga los SS de los juegos
+                                ),
+                            ),
+                        ),
+                      ),
+                      Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+
+                                      bool sesion = false;
+
+                                      final FirebaseAuth auth = FirebaseAuth.instance;
+                                      if(FirebaseAuth.instance.currentUser?.email == null){
+                                        // not logged
+                                        setState(() {
+                                          sinSesion2();
+
+                                          sesion = false;
+                                          print("Sin pestania $sesion");
+                                        });
+
+                                      } else {
+                                        // logged
+                                        setState(() {
+                                          Navigator.of(context).pushNamed("/cryptactoe");
+
+                                          sesion = true;
+                                          print("Con pestania $sesion");
+                                        });
+                                      }
+                                    },
+                                    child: Text('Play'),
+                                    style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                              image: DecorationImage(
+                                image: AssetImage("images/c.png"),
+                                fit: BoxFit.cover,
+                              )
+                          )
+                      ),
+                      Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      bool sesion = false;
+
+                                      final FirebaseAuth auth = FirebaseAuth.instance;
+                                      if(FirebaseAuth.instance.currentUser?.email == null){
+                                        // not logged
+                                        setState(() {
+                                          sinSesion2();
+
+                                          sesion = false;
+                                          print("Sin pestania $sesion");
+                                        });
+
+                                      } else {
+                                        // logged
+                                        setState(() {
+                                          Navigator.of(context).pushNamed("/cryptactoe");
+
+                                          sesion = true;
+                                          print("Con pestania $sesion");
+                                        });
+                                      }
+                                    },
+                                    child: Text('Play'),
+                                    style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                              image: DecorationImage(
+                                image: AssetImage("images/d.png"),
+                                fit: BoxFit.cover,
+                              )
+                          )
+                      ),
+                    ],
+                    options: CarouselOptions(
+                      viewportFraction: 0.8,
+                      height: 400,
+                      autoPlay: true,
+                      autoPlayCurve: Curves.easeInOut,
+                      reverse: true,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('Launch on Feb 13', style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      )
     );
   }
 }
-

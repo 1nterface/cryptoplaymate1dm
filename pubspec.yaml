@@ -32,7 +32,7 @@ dependencies:
   titled_navigation_bar: 3.5.0
   firebase_auth:
   firebase_core:
-  cloud_firestore: 2.5.3
+  cloud_firestore: 3.1.7
   firebase_database:
   image_picker: 0.8.4+1
   firebase_storage:
@@ -60,6 +60,8 @@ dependencies:
   file_picker: 4.2.8
   url_strategy: 0.2.0
   dio: 4.0.4
+  carousel_slider:
+  font_awesome_flutter: 9.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -82,7 +84,6 @@ flutter:
 
   assets:
     - images/llantera_diaz.png
-    - images/pizzeria.png
     - images/onelooklogo.png
     - images/call-center.png
     - images/delivery.png
@@ -95,9 +96,9 @@ flutter:
     - images/pizza.png
     - images/sushi.png
     - images/wing.png
+    - images/opcex.png
     - images/ancestral.jpg
-    - images/siento11.jpg
-    - images/siento11.png
+
 
 
 

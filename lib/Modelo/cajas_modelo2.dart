@@ -58,5 +58,4 @@ class cajas_modelo2{
   double get longitud => _longitud;
   String get empresa => _empresa;
 
-
 }

@@ -36,7 +36,6 @@ class cajas_modelo{
 
   }
 
-
   String get nombreProducto => _nombreProducto;
   String get fecha => _fecha;
   String get id => _id;
@@ -51,6 +50,7 @@ class cajas_modelo{
   String get estado => _estado;
   String get newid => _newid;
   double get costoProducto => _costoProducto;
+
 
 
 }

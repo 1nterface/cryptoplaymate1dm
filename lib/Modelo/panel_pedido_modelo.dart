@@ -72,6 +72,4 @@ class panel_pedido_modelo{
   String get calleNegocio => _calleNegocio;
   String get numextNegocio => _numextNegocio;
 
-
-
 }

@@ -39,9 +39,10 @@ class _olvidecontraState extends State<olvidecontra> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF171B26),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.yellow[700],
+        backgroundColor: Color(0xFF293143),
         title: Text('¿Olvidaste tu contraseña?'),
       ),
       body: Form(
