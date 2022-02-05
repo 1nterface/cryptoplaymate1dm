@@ -194,15 +194,30 @@ class cryptactoeState extends State<cryptactoe> {
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
 
             String tiempo = data["nombre"];
+            String coins = data["coins"];
+            String level = data["level"];
             print(tiempo.toString());
 
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.timer),
-                SizedBox(width: 5),
-                Text(tiempo, style: TextStyle(color: Colors.red[800], fontSize: 15.0, fontWeight: FontWeight.bold),),
-              ],
+                Column(
+                    children: [
+                      Container(
+                          width: 40,
+                          height: 40,
+                          child: Image.asset("images/opcex.png")
+                      ),
+                      SizedBox(height: 10),
+                      Column(children:[
+                        Text("Coins | Level", style: TextStyle(fontSize: 20, color: Colors.white38),),
+                        SizedBox(width: 5),
+                        Text(coins.toString()+" | "+level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),
+                      ],
+                      ),
+                    ]
+                ),
+                ],
             );
 
           }
