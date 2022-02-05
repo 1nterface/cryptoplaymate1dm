@@ -483,7 +483,8 @@ class homeState extends State<home> {
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: const [
-                                  Text("MEXICAN LOTTERY NFT", style: TextStyle(color: Colors.white),)
+                                  Flexible(
+                                      child: Text("CRYPTACTOE", style: TextStyle(color: Colors.white, fontSize: 35),))
                                 ],
                               )
                             ],
@@ -498,98 +499,156 @@ class homeState extends State<home> {
                             ),
                         ),
                       ),
-                      Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
+                      InkWell(
+                        onTap: () async {
 
-                                      bool sesion = false;
+                          bool sesion = false;
 
-                                      final FirebaseAuth auth = FirebaseAuth.instance;
-                                      if(FirebaseAuth.instance.currentUser?.email == null){
-                                        // not logged
-                                        setState(() {
-                                          sinSesion2();
+                          final FirebaseAuth auth = FirebaseAuth.instance;
+                          if(FirebaseAuth.instance.currentUser?.email == null){
+                            // not logged
+                            setState(() {
+                              sinSesion2();
 
-                                          sesion = false;
-                                          print("Sin pestania $sesion");
-                                        });
+                              sesion = false;
+                              print("Sin pestania $sesion");
+                            });
 
-                                      } else {
-                                        // logged
-                                        setState(() {
-                                          Navigator.of(context).pushNamed("/cryptactoe");
+                          } else {
+                            // logged
+                            setState(() {
+                              Navigator.of(context).pushNamed("/cryptactoe");
 
-                                          sesion = true;
-                                          print("Con pestania $sesion");
-                                        });
-                                      }
-                                    },
-                                    child: Text('Play'),
-                                    style: ElevatedButton.styleFrom(shape: StadiumBorder()),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(12)),
-                              image: DecorationImage(
-                                image: AssetImage("images/c.png"),
-                                fit: BoxFit.cover,
-                              )
-                          )
+                              sesion = true;
+                              print("Con pestania $sesion");
+                            });
+                          }
+
+                          //sinSesion2();
+                          //Navigator.of(context).pushNamed("/cryptactoe");
+                        },
+                        child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Flexible(
+                                        child: Text("STONE, PAPER OR SCISSORS", style: TextStyle(color: Colors.white, fontSize: 35),))
+                                  ],
+                                )
+                              ],
+                            ),
+                            color: Colors.lightBlueAccent,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                image: DecorationImage(
+                                  image: AssetImage("images/c.png"),
+                                  fit: BoxFit.cover,
+                                )
+                            )
+                        ),
                       ),
-                      Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      bool sesion = false;
+                      InkWell(
+                        onTap: () async {
 
-                                      final FirebaseAuth auth = FirebaseAuth.instance;
-                                      if(FirebaseAuth.instance.currentUser?.email == null){
-                                        // not logged
-                                        setState(() {
-                                          sinSesion2();
+                          bool sesion = false;
 
-                                          sesion = false;
-                                          print("Sin pestania $sesion");
-                                        });
+                          final FirebaseAuth auth = FirebaseAuth.instance;
+                          if(FirebaseAuth.instance.currentUser?.email == null){
+                            // not logged
+                            setState(() {
+                              sinSesion2();
 
-                                      } else {
-                                        // logged
-                                        setState(() {
-                                          Navigator.of(context).pushNamed("/cryptactoe");
+                              sesion = false;
+                              print("Sin pestania $sesion");
+                            });
 
-                                          sesion = true;
-                                          print("Con pestania $sesion");
-                                        });
-                                      }
-                                    },
-                                    child: Text('Play'),
-                                    style: ElevatedButton.styleFrom(shape: StadiumBorder()),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(12)),
-                              image: DecorationImage(
-                                image: AssetImage("images/d.png"),
-                                fit: BoxFit.cover,
-                              )
-                          )
+                          } else {
+                            // logged
+                            setState(() {
+                              Navigator.of(context).pushNamed("/cryptactoe");
+
+                              sesion = true;
+                              print("Con pestania $sesion");
+                            });
+                          }
+
+                          //sinSesion2();
+                          //Navigator.of(context).pushNamed("/cryptactoe");
+                        },                        child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Flexible(
+                                        child: Text("MEXICAN LOTTERY NFT", style: TextStyle(color: Colors.white, fontSize: 35),))
+                                  ],
+                                )
+                              ],
+                            ),
+                            color: Color(0xFF815FD5),
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                image: DecorationImage(
+                                  image: AssetImage("images/d.png"),
+                                  fit: BoxFit.cover,
+                                )
+                            )
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+
+                          bool sesion = false;
+
+                          final FirebaseAuth auth = FirebaseAuth.instance;
+                          if(FirebaseAuth.instance.currentUser?.email == null){
+                            // not logged
+                            setState(() {
+                              sinSesion2();
+
+                              sesion = false;
+                              print("Sin pestania $sesion");
+                            });
+
+                          } else {
+                            // logged
+                            setState(() {
+                              Navigator.of(context).pushNamed("/cryptactoe");
+
+                              sesion = true;
+                              print("Con pestania $sesion");
+                            });
+                          }
+
+                          //sinSesion2();
+                          //Navigator.of(context).pushNamed("/cryptactoe");
+                        },                        child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Flexible(
+                                        child: Text("MEMORY NFT", style: TextStyle(color: Colors.white, fontSize: 35),))
+                                  ],
+                                )
+                              ],
+                            ),
+                            color: Colors.pinkAccent,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                image: DecorationImage(
+                                  image: AssetImage("images/d.png"),
+                                  fit: BoxFit.cover,
+                                )
+                            )
+                        ),
                       ),
                     ],
                     options: CarouselOptions(
