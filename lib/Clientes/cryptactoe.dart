@@ -176,6 +176,34 @@ class cryptactoeState extends State<cryptactoe> {
     });
   }
 
+  Widget tiempos (BuildContext context){
+    return StreamBuilder<DocumentSnapshot<Object?>>(
+        stream: FirebaseFirestore.instance.collection('Players').doc("player@gmail.com").snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Text("Loading");
+          }
+          //reference.where("title", isEqualTo: 'UID').snapshots(),
+
+          else
+          {
+            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+
+            String tiempo = data["nombre"];
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.timer),
+                SizedBox(width: 5),
+                Text(tiempo, style: TextStyle(color: Colors.red[800], fontSize: 15.0, fontWeight: FontWeight.bold),),
+              ],
+            );
+
+          }
+        }
+    );
+  }
 
   Widget playerData (BuildContext context){
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -217,7 +245,7 @@ class cryptactoeState extends State<cryptactoe> {
                           Column(children:[
                             Text("Coins | Level", style: TextStyle(fontSize: 20, color: Colors.white38),),
                             SizedBox(width: 5),
-                            Text(userDocument["coins"], style: TextStyle(fontSize: 25, color: Colors.white),),
+                            Text(userDocument["coins"]+"  "+userDocument["level"], style: TextStyle(fontSize: 25, color: Colors.white),),
                           ],
                           ),
                         ]
@@ -264,7 +292,7 @@ class cryptactoeState extends State<cryptactoe> {
                           child: Icon(Icons.person, size: 70, color: Colors.white38),
                         ),
                         SizedBox(width: 15),
-                        playerData(context),
+                        tiempos(context),
                       ],
                     ),
 
