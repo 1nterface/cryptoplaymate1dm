@@ -224,15 +224,15 @@ class cryptactoeState extends State<cryptactoe> {
                         Text(" | ", style: TextStyle(fontSize: 40, color: Colors.white),),
                         Column(
                           children: [
-                            Text("Coins", style: TextStyle(fontSize: 20, color: Colors.white38),),
+                            Text("Level", style: TextStyle(fontSize: 20, color: Colors.white38),),
                             Row(
                               children: [
                                 Container(
                                     width: 40,
                                     height: 40,
-                                    child: Image.asset("images/opcex.png")
+                                    child: Icon(Icons.subdirectory_arrow_right_outlined, color: Colors.lightBlueAccent,)
                                 ),
-                                Text(coins.toString()+".0", style: TextStyle(fontSize: 25, color: Colors.white),),
+                                Text(level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),
                               ],
                             ),
                           ],
