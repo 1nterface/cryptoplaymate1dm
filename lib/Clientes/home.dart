@@ -490,13 +490,6 @@ class homeState extends State<home> {
                             ],
                           ),
                           color: Colors.pinkAccent,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                image: DecorationImage(
-                                  image: AssetImage("images/ancestral.jpg"),
-                                  fit: BoxFit.cover, //contain en todas ya que tenga los SS de los juegos
-                                ),
-                            ),
                         ),
                       ),
                       InkWell(
@@ -541,13 +534,7 @@ class homeState extends State<home> {
                               ],
                             ),
                             color: Colors.lightBlueAccent,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(12)),
-                                image: DecorationImage(
-                                  image: AssetImage("images/c.png"),
-                                  fit: BoxFit.cover,
-                                )
-                            )
+
                         ),
                       ),
                       InkWell(
@@ -591,13 +578,7 @@ class homeState extends State<home> {
                               ],
                             ),
                             color: Color(0xFF815FD5),
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(12)),
-                                image: DecorationImage(
-                                  image: AssetImage("images/d.png"),
-                                  fit: BoxFit.cover,
-                                )
-                            )
+
                         ),
                       ),
                       InkWell(
@@ -641,13 +622,7 @@ class homeState extends State<home> {
                               ],
                             ),
                             color: Colors.pinkAccent,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(12)),
-                                image: DecorationImage(
-                                  image: AssetImage("images/d.png"),
-                                  fit: BoxFit.cover,
-                                )
-                            )
+
                         ),
                       ),
                     ],
