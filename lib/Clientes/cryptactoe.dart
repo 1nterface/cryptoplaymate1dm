@@ -235,7 +235,8 @@ class cryptactoeState extends State<cryptactoe> {
                                 Text(level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),
                               ],//
                             ),
-                          ],
+                          ],//
+
                         ),
                       ],
                       ),
