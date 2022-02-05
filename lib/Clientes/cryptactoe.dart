@@ -203,7 +203,7 @@ class cryptactoeState extends State<cryptactoe> {
               children: [
                 Column(
                     children: [
-
+                      Text(tiempo, style: TextStyle(fontSize: 35, color: Colors.white),),
                       SizedBox(height: 10),
                       Column(children:[
                         Text("Coins | Level", style: TextStyle(fontSize: 20, color: Colors.white38),),
@@ -253,8 +253,6 @@ class cryptactoeState extends State<cryptactoe> {
                 Column(
                   children: [
                     Container(
-                      height: 100,
-                      width: 100,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Color(0xFF815FD5))
