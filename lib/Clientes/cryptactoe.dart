@@ -240,7 +240,7 @@ class cryptactoeState extends State<cryptactoe> {
                         ),
                       ],
                       ),
-                    ]
+                    ]//prueba
                 ),
                 ],
             );
