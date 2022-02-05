@@ -262,6 +262,8 @@ class cryptactoeState extends State<cryptactoe> {
     );
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -443,5 +445,12 @@ class cryptactoeState extends State<cryptactoe> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    tiempos(context);
+    // TODO: implement initState
+    super.initState();
   }
 }
