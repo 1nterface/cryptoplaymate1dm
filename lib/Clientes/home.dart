@@ -477,6 +477,18 @@ class homeState extends State<home> {
                           //Navigator.of(context).pushNamed("/cryptactoe");
                         },
                         child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text("MEXICAN LOTTERY NFT", style: TextStyle(color: Colors.white),)
+                                ],
+                              )
+                            ],
+                          ),
+                          color: Colors.pinkAccent,
                             decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(5)),
                                 image: DecorationImage(
