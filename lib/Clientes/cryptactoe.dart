@@ -227,7 +227,7 @@ class cryptactoeState extends State<cryptactoe> {
                             Text("Level", style: TextStyle(fontSize: 20, color: Colors.white38),),
                             Row(
                               children: [
-                                Container(
+                                Container(//
                                     width: 40,
                                     height: 40,
                                     child: Icon(Icons.subdirectory_arrow_right_outlined, color: Colors.lightBlueAccent,)
