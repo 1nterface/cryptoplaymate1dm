@@ -176,11 +176,12 @@ class cryptactoeState extends State<cryptactoe> {
     });
   }
 
+
   Widget playerData (BuildContext context){
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     final correo = user!.email;
-    return StreamBuilder(
+    return StreamBuilder<DocumentSnapshot<Object?>>(
         stream: FirebaseFirestore.instance.collection('Players').doc(correo.toString()).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
