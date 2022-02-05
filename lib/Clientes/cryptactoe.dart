@@ -203,16 +203,22 @@ class cryptactoeState extends State<cryptactoe> {
               children: [
                 Column(
                     children: [
-                      Container(
-                          width: 40,
-                          height: 40,
-                          child: Image.asset("images/opcex.png")
-                      ),
+
                       SizedBox(height: 10),
                       Column(children:[
                         Text("Coins | Level", style: TextStyle(fontSize: 20, color: Colors.white38),),
                         SizedBox(width: 5),
-                        Text(coins.toString()+" | "+level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),
+                        Row(
+                          children:[
+                            Container(
+                                width: 40,
+                                height: 40,
+                                child: Image.asset("images/opcex.png")
+                            ),
+                            Text(coins.toString()+".0"+" | ", style: TextStyle(fontSize: 25, color: Colors.white),),
+                            Text(level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),
+                          ]
+                        ),
                       ],
                       ),
                     ]
@@ -247,6 +253,8 @@ class cryptactoeState extends State<cryptactoe> {
                 Column(
                   children: [
                     Container(
+                      height: 100,
+                      width: 100,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Color(0xFF815FD5))
