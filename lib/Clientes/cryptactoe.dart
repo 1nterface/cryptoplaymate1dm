@@ -177,8 +177,12 @@ class cryptactoeState extends State<cryptactoe> {
   }
 
   Widget tiempos (BuildContext context){
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final correo = user!.email;
+
     return StreamBuilder<DocumentSnapshot<Object?>>(
-        stream: FirebaseFirestore.instance.collection('Players').doc("player@gmail.com").snapshots(),
+        stream: FirebaseFirestore.instance.collection('Players').doc(correo).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Text("Loading");
@@ -295,7 +299,7 @@ class cryptactoeState extends State<cryptactoe> {
                           child: Icon(Icons.person, size: 70, color: Colors.white38),
                         ),
                         SizedBox(width: 15),
-                        playerData(context),
+                        tiempos(context),
                       ],
                     ),
 
@@ -450,7 +454,6 @@ class cryptactoeState extends State<cryptactoe> {
   @override
   void initState() {
     tiempos(context);
-    playerData(context);
     // TODO: implement initState
     super.initState();
   }
