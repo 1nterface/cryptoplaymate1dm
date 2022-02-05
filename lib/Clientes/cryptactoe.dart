@@ -233,7 +233,7 @@ class cryptactoeState extends State<cryptactoe> {
                                     child: Icon(Icons.subdirectory_arrow_right_outlined, color: Colors.lightBlueAccent,)
                                 ),
                                 Text(level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),
-                              ],
+                              ],//
                             ),
                           ],
                         ),
