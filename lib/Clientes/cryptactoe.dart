@@ -203,21 +203,39 @@ class cryptactoeState extends State<cryptactoe> {
               children: [
                 Column(
                     children: [
-                      Text(tiempo.toString(), style: TextStyle(fontSize: 35, color: Colors.white),),
+                      Text(tiempo.toString(), style: TextStyle(fontSize: 30, color: Colors.white),),
                       SizedBox(height: 10),
                       Column(children:[
-                        Text("Coins | Levell", style: TextStyle(fontSize: 20, color: Colors.white38),),
-                        SizedBox(width: 5),
-                        Row(
-                          children:[
-                            Container(
-                                width: 40,
-                                height: 40,
-                                child: Image.asset("images/opcex.png")
+                        Column(
+                          children: [
+                            Text("Coins", style: TextStyle(fontSize: 20, color: Colors.white38),),
+                            Row(
+                              children: [
+                                Container(
+                                    width: 40,
+                                    height: 40,
+                                    child: Image.asset("images/opcex.png")
+                                ),
+                                Text(coins.toString()+".0", style: TextStyle(fontSize: 25, color: Colors.white),),
+                              ],
                             ),
-                            Text(coins.toString()+".0"+" | ", style: TextStyle(fontSize: 25, color: Colors.white),),
-                            Text(level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),
-                          ]
+                          ],
+                        ),
+                        Text(" | ", style: TextStyle(fontSize: 40, color: Colors.white),),
+                        Column(
+                          children: [
+                            Text("Coins", style: TextStyle(fontSize: 20, color: Colors.white38),),
+                            Row(
+                              children: [
+                                Container(
+                                    width: 40,
+                                    height: 40,
+                                    child: Image.asset("images/opcex.png")
+                                ),
+                                Text(coins.toString()+".0", style: TextStyle(fontSize: 25, color: Colors.white),),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                       ),
