@@ -484,7 +484,7 @@ class homeState extends State<home> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: const [
                                   Flexible(
-                                      child: Text("CRYPTACTOE", style: TextStyle(color: Colors.white, fontSize: 35),))
+                                      child: Text("CRYPTACTOE", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
                                 ],
                               )
                             ],
@@ -528,7 +528,7 @@ class homeState extends State<home> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     Flexible(
-                                        child: Text("STONE, PAPER OR SCISSORS", style: TextStyle(color: Colors.white, fontSize: 35),))
+                                        child: Text("STONE, PAPER OR SCISSORS", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
                                   ],
                                 )
                               ],
@@ -572,7 +572,7 @@ class homeState extends State<home> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     Flexible(
-                                        child: Text("MEXICAN LOTTERY NFT", style: TextStyle(color: Colors.white, fontSize: 35),))
+                                        child: Text("MEXICAN LOTTERY NFT", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
                                   ],
                                 )
                               ],
@@ -616,7 +616,7 @@ class homeState extends State<home> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     Flexible(
-                                        child: Text("MEMORY NFT", style: TextStyle(color: Colors.white, fontSize: 35),))
+                                        child: Text("MEMORY NFT", style: TextStyle( color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
                                   ],
                                 )
                               ],
