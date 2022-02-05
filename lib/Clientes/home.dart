@@ -593,7 +593,7 @@ class homeState extends State<home> {
                               sinSesion2();
 
                               sesion = false;
-                              print("Sin pestania $sesion");
+                              print("Sin  luca $sesion");
                             });
 
                           } else {

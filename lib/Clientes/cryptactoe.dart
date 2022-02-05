@@ -190,6 +190,7 @@ class cryptactoeState extends State<cryptactoe> {
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
 
             String tiempo = data["nombre"];
+            print(tiempo.toString());
 
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
