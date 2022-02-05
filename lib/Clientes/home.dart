@@ -572,7 +572,7 @@ class homeState extends State<home> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     Flexible(
-                                        child: Text("MEXICAN LOTTERY NFT", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
+                                        child: Text("LOTTERY NFT", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
                                   ],
                                 )
                               ],

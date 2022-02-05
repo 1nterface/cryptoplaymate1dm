@@ -295,7 +295,7 @@ class cryptactoeState extends State<cryptactoe> {
                           child: Icon(Icons.person, size: 70, color: Colors.white38),
                         ),
                         SizedBox(width: 15),
-                        tiempos(context),
+                        playerData(context),
                       ],
                     ),
 
@@ -450,6 +450,7 @@ class cryptactoeState extends State<cryptactoe> {
   @override
   void initState() {
     tiempos(context);
+    playerData(context);
     // TODO: implement initState
     super.initState();
   }
