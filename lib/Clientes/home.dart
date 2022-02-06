@@ -88,7 +88,7 @@ class homeState extends State<home> {
       if (result == null) {
 
         Navigator.of(context).pop();
-        Navigator.of(context).pushNamed('/cryptactoe_lobby');
+        Navigator.of(context).pushNamed('/cryptactoe');
 
         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => home(cajas_modelo("","","",0,0,0,0,0,"","","","","",0))));
         //Toast.show("¡Has iniciado sesion!", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER);
@@ -279,97 +279,106 @@ class homeState extends State<home> {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children:[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap:(){
 
-                InkWell(
-                  onTap:(){
-
-                    Navigator.of(context).pushNamed('/whitepaper');
+                        Navigator.of(context).pushNamed('/whitepaper');
 
 
-                  },
-                  child: Row(
-                      children: [
-                        Icon(Icons.list, color: Color(0xFF815FD5)),
-                        SizedBox(width:10),
-                        Text('Whitepaper', style: TextStyle(color: Colors.white),),
-                      ]
-                  ),
+                      },
+                      child: Row(
+                          children: [
+                            Icon(Icons.list, color: Color(0xFF815FD5)),
+                            SizedBox(width:10),
+                            Text('Whitepaper', style: TextStyle(color: Colors.white),),
+                          ]
+                      ),
+                    ),
+                    SizedBox(width: 15),
+
+                    InkWell(
+                      onTap:(){
+
+                        Navigator.of(context).pushNamed("/roadmap");
+
+                      },
+                      child: Row(
+                          children: [
+                            Icon(Icons.account_tree, color: Colors.pinkAccent),
+                            SizedBox(width:10),
+                            Text('Roadmap', style: TextStyle(color: Colors.white),),
+                          ]
+                      ),
+                    ),
+                    SizedBox(width: 15),
+
+                    InkWell(
+                      onTap:(){
+                        launchURL(url);
+                      },
+                      child: Row(
+                          children: [
+                            Icon(FontAwesomeIcons.twitter, color: Colors.lightBlueAccent),
+                            SizedBox(width:10),
+                            Text('Follow us', style: TextStyle(color: Colors.white),),
+                          ]
+                      ),
+                    ),
+
+                    SizedBox(width: 15),
+
+                    InkWell(
+                      onTap:(){
+                        launchURLDiscord(urlD);
+                      },
+                      child: Row(
+                          children: [
+                            Icon(FontAwesomeIcons.discord, color: Color(0xFF815FD5)),
+                            SizedBox(width:10),
+                            Text('Join us', style: TextStyle(color: Colors.white),),
+                          ]
+                      ),
+                    ),
+
+
+                    SizedBox(width: 15),
+
+                    InkWell(
+                      onTap:(){
+                        launchURLDiscord(urlD);
+                      },
+                      child: Row(
+                          children: [
+                            Icon(FontAwesomeIcons.linkedin, color: Colors.pinkAccent),
+                            SizedBox(width:10),
+                            Text('Contact us', style: TextStyle(color: Colors.white),),
+                          ]
+                      ),
+                    ),
+                    SizedBox(width: 15),
+
+                  ],
                 ),
-                SizedBox(width: 15),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap:(){
+                        signOut();
+                      },
+                      child: Row(
+                          children: [
+                            Icon(Icons.exit_to_app, color: Colors.lightBlueAccent),
+                            //SizedBox(width:10),
+                            //Text('Contact us', style: TextStyle(color: Colors.white),),
+                          ]
+                      ),
+                    ),
 
-                InkWell(
-                  onTap:(){
-
-                    Navigator.of(context).pushNamed("/roadmap");
-
-                  },
-                  child: Row(
-                      children: [
-                        Icon(Icons.account_tree, color: Colors.pinkAccent),
-                        SizedBox(width:10),
-                        Text('Roadmap', style: TextStyle(color: Colors.white),),
-                      ]
-                  ),
-                ),
-                SizedBox(width: 15),
-
-                InkWell(
-                  onTap:(){
-                    launchURL(url);
-                  },
-                  child: Row(
-                      children: [
-                        Icon(FontAwesomeIcons.twitter, color: Colors.lightBlueAccent),
-                        SizedBox(width:10),
-                        Text('Follow us', style: TextStyle(color: Colors.white),),
-                      ]
-                  ),
-                ),
-
-                SizedBox(width: 15),
-
-                InkWell(
-                  onTap:(){
-                    launchURLDiscord(urlD);
-                  },
-                  child: Row(
-                      children: [
-                        Icon(FontAwesomeIcons.discord, color: Color(0xFF815FD5)),
-                        SizedBox(width:10),
-                        Text('Join us', style: TextStyle(color: Colors.white),),
-                      ]
-                  ),
-                ),
-
-
-                SizedBox(width: 15),
-
-                InkWell(
-                  onTap:(){
-                    launchURLDiscord(urlD);
-                  },
-                  child: Row(
-                      children: [
-                        Icon(FontAwesomeIcons.linkedin, color: Colors.pinkAccent),
-                        SizedBox(width:10),
-                        Text('Contact us', style: TextStyle(color: Colors.white),),
-                      ]
-                  ),
-                ),
-                SizedBox(width: 15),
-
-                InkWell(
-                  onTap:(){
-                    signOut();
-                  },
-                  child: Row(
-                      children: [
-                        Icon(Icons.exit_to_app, color: Colors.lightBlueAccent),
-                        //SizedBox(width:10),
-                        //Text('Contact us', style: TextStyle(color: Colors.white),),
-                      ]
-                  ),
-                ),
+                  ],
+                )
               ],
           ),
         ),
