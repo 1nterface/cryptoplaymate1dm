@@ -208,12 +208,12 @@ class cryptactoeState extends State<cryptactoe> {
                       Row(children:[
                         Column(
                           children: [
-                            Text("Coins-", style: TextStyle(fontSize: 20, color: Colors.white38),),
+                            Text("Coins", style: TextStyle(fontSize: 20, color: Colors.white38),),
                             Row(
                               children: [
                                 Container(
-                                    width: 40,
-                                    height: 40,
+                                    width: 30,
+                                    height: 30,
                                     child: Image.asset("images/opcex.png")
                                 ),
                                 Text(coins.toString()+".0", style: TextStyle(fontSize: 25, color: Colors.white),),
@@ -230,7 +230,7 @@ class cryptactoeState extends State<cryptactoe> {
                                 Container(//
                                     width: 40,
                                     height: 40,
-                                    child: Icon(Icons.subdirectory_arrow_right_outlined, color: Colors.lightBlueAccent,)
+                                    child: Icon(Icons.subdirectory_arrow_right_outlined, color: Colors.yellow,)
                                 ),
                                 Text(level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),
                               ],//
@@ -276,7 +276,7 @@ class cryptactoeState extends State<cryptactoe> {
                         Container(
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border: Border.all(color: Color(0xFF815FD5))
+                              border: Border.all(color: Colors.lightBlueAccent)
                           ),
                           child: Icon(Icons.person, size: 70, color: Colors.white38),
                         ),
