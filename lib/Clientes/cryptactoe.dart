@@ -212,8 +212,8 @@ class cryptactoeState extends State<cryptactoe> {
                             Row(
                               children: [
                                 Container(
-                                    width: 30,
-                                    height: 30,
+                                    width: 20,
+                                    height: 20,
                                     child: Image.asset("images/opcex.png")
                                 ),
                                 Text(coins.toString()+".0", style: TextStyle(fontSize: 25, color: Colors.white),),
@@ -228,8 +228,8 @@ class cryptactoeState extends State<cryptactoe> {
                             Row(
                               children: [
                                 Container(//
-                                    width: 40,
-                                    height: 40,
+                                    width: 20,
+                                    height: 20,
                                     child: Icon(Icons.subdirectory_arrow_right_outlined, color: Colors.yellow,)
                                 ),
                                 Text(level.toString(), style: TextStyle(fontSize: 25, color: Colors.white),),

@@ -486,16 +486,18 @@ class homeState extends State<home> {
                           //Navigator.of(context).pushNamed("/cryptactoe");
                         },
                         child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  FittedBox(child: Text("CRYPTACTOE", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
-                                ],
-                              )
-                            ],
+                          child: FittedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text("CRYPTACTOE", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,)
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                           color: Colors.pinkAccent,
                         ),
@@ -574,16 +576,18 @@ class homeState extends State<home> {
                           //sinSesion2();
                           //Navigator.of(context).pushNamed("/cryptactoe");
                         },                        child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    FittedBox(child: Text("LOTTERY NFT", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
-                                  ],
-                                )
-                              ],
+                            child: FittedBox(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text("LOTTERY NFT", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,)
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                             color: Color(0xFF815FD5),
 
@@ -616,20 +620,23 @@ class homeState extends State<home> {
 
                           //sinSesion2();
                           //Navigator.of(context).pushNamed("/cryptactoe");
-                        },                        child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    FittedBox(child: Text("MEMORY NFT", style: TextStyle( color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
-                                  ],
-                                )
-                              ],
-                            ),
-                            color: Colors.pinkAccent,
+                        },
+                        child: FittedBox(
+                          child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text("MEMORY NFT", style: TextStyle( color: Colors.white, fontSize: 35), textAlign: TextAlign.center,)
+                                    ],
+                                  )
+                                ],
+                              ),
+                              color: Colors.pinkAccent,
 
+                          ),
                         ),
                       ),
                     ],
