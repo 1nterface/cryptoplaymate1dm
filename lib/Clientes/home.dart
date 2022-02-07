@@ -529,16 +529,18 @@ class homeState extends State<home> {
                           //Navigator.of(context).pushNamed("/cryptactoe");
                         },
                         child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    FittedBox(child: Text("STONE, PAPER OR SCISSORS", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,))
-                                  ],
-                                )
-                              ],
+                            child: FittedBox(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text("STONE, PAPER OR SCISSORS", style: TextStyle(color: Colors.white, fontSize: 35), textAlign: TextAlign.center,)
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                             color: Colors.lightBlueAccent,
 
